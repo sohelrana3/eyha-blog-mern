@@ -45,15 +45,6 @@ const registration = async (req, res) => {
         } else {
             res.send({ error: "Email Already Exits" });
         }
-
-        // const user = new User({
-        //     username: username,
-        //     email: email,
-        //     password: password,
-        // });
-
-        // user.save();
-        // res.send(user);
     } catch (err) {
         res.send(err);
     }
