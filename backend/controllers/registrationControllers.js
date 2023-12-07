@@ -4,6 +4,7 @@ const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
 const emailValidation = require("../helpers/emailValidation");
 const passwordValidation = require("../helpers/passwordValidation");
+const usernameValidation = require("../helpers/usernameValidation");
 const registration = async (req, res) => {
     try {
         // req.body
@@ -18,6 +19,12 @@ const registration = async (req, res) => {
             } else if (!password) {
                 res.send({ error: "password Required!" });
             } else {
+                // username validation
+                if (username) {
+                    if (!usernameValidation(username)) {
+                        return res.send({ error: "Username Required!" });
+                    }
+                }
                 // email validation
                 if (email) {
                     if (!emailValidation(email)) {
@@ -28,7 +35,7 @@ const registration = async (req, res) => {
                 if (password) {
                     if (!passwordValidation(password)) {
                         return res.send({
-                            errror: "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:",
+                            error: "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:",
                         });
                     }
                 }
