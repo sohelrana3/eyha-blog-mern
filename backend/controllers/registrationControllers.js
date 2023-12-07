@@ -1,5 +1,7 @@
 const User = require("../model/userSchema");
 const bcrypt = require("bcrypt");
+const otpGenerator = require("otp-generator");
+const nodemailer = require("nodemailer");
 const emailValidation = require("../helpers/emailValidation");
 const passwordValidation = require("../helpers/passwordValidation");
 const registration = async (req, res) => {
@@ -30,15 +32,38 @@ const registration = async (req, res) => {
                         });
                     }
                 }
+                // otp-ganarate
+                let otp = otpGenerator.generate(6, {
+                    upperCaseAlphabets: false,
+                    specialChars: true,
+                });
                 // bcrypt password
-                bcrypt.hash(password, 10, function (err, hash) {
+                bcrypt.hash(password, 10, async function (err, hash) {
                     // Store hash in your password DB.
                     const user = new User({
                         username: username,
                         email: email,
                         password: hash,
+                        otp: otp,
                     });
                     user.save();
+                    // nodemilar
+                    const transporter = nodemailer.createTransport({
+                        service: "gmail",
+                        auth: {
+                            user: "expartdesigns5@gmail.com",
+                            // pass: "aolz berp jnou uhkb",
+                            pass: "dasl wiso khze ranq",
+                        },
+                    });
+
+                    // gmail send
+                    const info = await transporter.sendMail({
+                        from: "expartdesigns5@gmail.com",
+                        to: email,
+                        subject: "Verify your Email",
+                        html: `<div style="display: flex;width: 600px;height: 200px;"> <div style="width: 50%;height: 100px;">Please Verify your email by click on this button <h2 style="color: red;">${otp}</h2></div></div>`,
+                    });
                     res.send({ success: "user create successfull" });
                 });
             }
