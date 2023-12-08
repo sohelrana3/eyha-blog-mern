@@ -1,20 +1,28 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import baseUrl from "../utils/Content";
 
 const Registration = () => {
     let [error, seterror] = useState({});
+    let [lodding, setlodding] = useState(false);
+    let navigate = useNavigate();
     const onFinish = async (values) => {
         console.log("Success:", values);
+        setlodding(!lodding)
         let data = {
             username: values.username,
             email: values.email,
             password: values.password,
         };
-        let userdata = await axios.post(` ${baseUrl}/auth/registration`, data);
-        console.log(userdata.data);
+        let userdata = await axios.post(
+            ` ${baseUrl}/api/v1/auth/registration`,
+            data
+        );
+
         seterror(userdata.data);
+        navigate("/login");
     };
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
@@ -90,9 +98,15 @@ const Registration = () => {
                             span: 16,
                         }}
                     >
-                        <Button type="primary" htmlType="submit">
-                            Sing Up
-                        </Button>
+                        {lodding ? (
+                            <Button type="primary" loading>
+                                Singup
+                            </Button>
+                        ) : (
+                            <Button type="primary" htmlType="submit">
+                                Sing Up
+                            </Button>
+                        )}
                     </Form.Item>
                 </Form>
             </Card>
