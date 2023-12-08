@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { json, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { loginData } from "../Slice/user/userSlice";
 import { Card, Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
@@ -11,6 +11,7 @@ const Login = () => {
     let [lodding, setlodding] = useState(false);
     let navigate = useNavigate();
     let dispatch = useDispatch();
+    let logData = useSelector((state) => state.logUser.loginUser);
     const onFinish = async (values) => {
         console.log("Success:", values);
         setlodding(true);
@@ -91,6 +92,9 @@ const Login = () => {
                             span: 16,
                         }}
                     >
+                        <p>
+                            <Link to="/ForgotPassword">Forgot Pasword</Link>
+                        </p>
                         {lodding ? (
                             <Button type="primary" loading>
                                 Login
@@ -102,6 +106,12 @@ const Login = () => {
                         )}
                     </Form.Item>
                 </Form>
+                <p>
+                    Don’t have an account ?{" "}
+                    <Link to="/Registration" className="reglink">
+                        Sign up
+                    </Link>
+                </p>
             </Card>
         </div>
     );

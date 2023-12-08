@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Card, Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import baseUrl from "../utils/Content";
@@ -10,7 +10,7 @@ const Registration = () => {
     let navigate = useNavigate();
     const onFinish = async (values) => {
         console.log("Success:", values);
-        setlodding(!lodding)
+        setlodding(!lodding);
         let data = {
             username: values.username,
             email: values.email,
@@ -109,6 +109,12 @@ const Registration = () => {
                         )}
                     </Form.Item>
                 </Form>
+                <p>
+                    Already have an account ?{" "}
+                    <Link to="/login" className="reglink">
+                        Sign In
+                    </Link>
+                </p>
             </Card>
         </div>
     );
