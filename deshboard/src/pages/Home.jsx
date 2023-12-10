@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { Col, Row } from "antd";
+import { useEffect, useState } from "react";
+import { Col, Row, Avatar, Space } from "antd";
 import {
-    AppstoreOutlined,
-    ContainerOutlined,
+    CommentOutlined,
     DesktopOutlined,
-    MailOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
+    CodeOutlined,
+    DashboardOutlined,
+    ProfileOutlined,
+    PoweroffOutlined,
 } from "@ant-design/icons";
 import { Button, Menu } from "antd";
 import logo from "../assets/logo.svg";
+import { useNavigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -22,52 +23,69 @@ function getItem(label, key, icon, children, type) {
     };
 }
 const items = [
-    getItem("Deshboard", "1", <PieChartOutlined  />),
-    getItem("Comments", "2", <DesktopOutlined />),
-    getItem("Posts", "sub1", <MailOutlined />, [
-        getItem("All Post", "5", <DesktopOutlined />),
-        getItem("Add To Post", "6", <MailOutlined />),
-   
+    getItem("Deshboard", "/", <DashboardOutlined />),
+    getItem("Comments", "/comments", <CommentOutlined />),
+    getItem("Posts", "sub1", <ProfileOutlined />, [
+        getItem("All Post", "/allPost", <DesktopOutlined />),
+        getItem("Crate to post", "/createPost", <CodeOutlined />),
     ]),
-
 ];
 const Home = () => {
+    let navigate = useNavigate();
+    let logData = useSelector((state) => state.logUser.loginUser);
     const [collapsed, setCollapsed] = useState(false);
-    const toggleCollapsed = () => {
-        setCollapsed(!collapsed);
+    const handlelogOut = () => {
+        localStorage.removeItem("user");
+        navigate("/login");
     };
-    let handdleDeshboard = ()=> {
-
-    }
+    let handleClick = (key) => {
+        navigate(key);
+    };
+    useEffect(() => {
+        if (logData == null) {
+            return navigate("/login");
+        }
+    }, []);
     return (
         <>
             <Row>
                 <Col span={4}>
                     <div className="rootlaout">
-                        <img src={logo} alt="logo" />
-                        <p style={{ color: "#C7C7C7" , marginBottom: "28px"}}>MAIN MENU</p>
-
                         {/* menu */}
-                        <div
-                            style={{
-                                width: 246,
-                            }}
-                        >
-                            
+                        <div>
+                            <img src={logo} alt="logo" />
+                            <p
+                                style={{
+                                    color: "#C7C7C7",
+                                    marginBottom: "28px",
+                                }}
+                            >
+                                MAIN MENU
+                            </p>
                             <Menu
                                 defaultSelectedKeys={["1"]}
                                 defaultOpenKeys={["sub1"]}
                                 mode="inline"
-                                theme="dark"
+                                theme="light"
                                 inlineCollapsed={collapsed}
                                 items={items}
-                               
+                                onClick={({ key }) => handleClick(key)}
+                            />
+                        </div>
+
+                        <div className="profile">
+                            {logData ? <img src={logData.avatar} alt="profile" /> : <img />}
+                            {logData ? <h2>{logData.username}</h2> : <h2></h2>}
+
+                            <Button
+                                icon={<PoweroffOutlined />}
+                                onClick={handlelogOut}
                             />
                         </div>
                     </div>
                 </Col>
                 <Col span={20}>
-                    <div className="deshboard">col</div>
+                    <Outlet />
                 </Col>
             </Row>
         </>
