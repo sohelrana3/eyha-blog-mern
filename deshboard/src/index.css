@@ -5,11 +5,27 @@
     box-sizing: border-box;
 }
 
-.box{
+.rootlaout {
+    background: #ffff;
     width: 100%;
     height: 100vh;
-    background: #5A7184;
     display: flex;
-    justify-content: center;
-    align-items: center;
+   padding-left: 40px;
+    padding-top: 36px;
+    flex-direction: column;
+}
+.rootlaout img {
+    width: 90px;
+    height: 28px;
+    margin-bottom: 58px;
+}
+.deshboard {
+    background: #f9f9f9;
+    width: 100%;
+    height: 100vh;
+    padding: 37px 50px;
+}
+
+#components-grid-demo-flex [class~="ant-row"] {
+    background: rgba(128, 128, 128, 0.08);
 }
