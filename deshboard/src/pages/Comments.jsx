@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import DeshboardTop from "../components/DeshboardTop";
 
 const Comments = () => {
-  return (
-    <div>Comments</div>
-  )
-}
+    return (
+        <div className="deshboard">
+            <DeshboardTop deshtitle="Comments"/>
+        </div>
+    );
+};
 
-export default Comments
+export default Comments;

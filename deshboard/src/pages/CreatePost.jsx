@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import DeshboardTop from "../components/DeshboardTop";
 
 const CreatePost = () => {
-  return (
-    <div>CreatePost</div>
-  )
-}
+    return (
+        <div className="deshboard">
+            <DeshboardTop deshtitle="Create Post" />
+        </div>
+    );
+};
 
-export default CreatePost
+export default CreatePost;
