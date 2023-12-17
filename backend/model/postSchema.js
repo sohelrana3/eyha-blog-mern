@@ -9,20 +9,24 @@ const postSchema = new mongoose.Schema({
         type: String,
     },
     description: {
-        type: Object,
+        type: String,
         required: true,
     },
     photo: {
         type: String,
         required: true,
     },
-    user: {
+    postAdmin: {
         type: String,
         require: true,
     },
     tags: {
-        type: String,
+        type: [String],
         required: false,
+    },
+    date: {
+        type: String,
+        required: true,
     },
 });
 
