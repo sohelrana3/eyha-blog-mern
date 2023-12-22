@@ -5,12 +5,8 @@ import {
     Row,
     Card,
     Flex,
-    Avatar,
     Button,
-    Cascader,
-    Checkbox,
     DatePicker,
-    Form,
     Input,
     InputNumber,
     Radio,
@@ -19,33 +15,65 @@ import {
     Switch,
     TreeSelect,
     Upload,
+    Space,
+    message,
 } from "antd";
 const { TextArea } = Input;
-import { PlusOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
 const { RangePicker } = DatePicker;
 
 const CreatePost = () => {
-    const [componentDisabled, setComponentDisabled] = useState(true);
-    const normFile = (e) => {
-        console.log(e);
-        if (Array.isArray(e)) {
-           
-            return e;
-        }
-        return e?.fileList;
+    const [input, setinput] = useState({});
+
+    const props = {
+        name: "file",
+        action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+        headers: {
+            authorization: "authorization-text",
+        },
+        onChange(info) {
+            if (info.file.status !== "uploading") {
+                console.log(info);
+                console.log(info.file);
+            }
+            if (info.file.status === "done") {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === "error") {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
     };
-    const onFinish = (values) => {
-        console.log("Success:", values);
+
+    const onChange = (value) => {
+        console.log(`selected ${value}`);
+        setinput({
+            ...input,
+            catagory: value,
+        });
     };
-    const onFinishFailed = (errorInfo) => {
-        console.log("Failed:", errorInfo);
+    const onSearch = (value) => {
+        console.log("search:", value);
+    };
+
+    const filterOption = (input, option) =>
+        (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
+    const handleChange = (e) => {
+        console.log(e.target.value);
+        setinput({
+            ...input,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const handlePost = () => {
+        console.log(input);
     };
     return (
         <div className="deshboard ">
             <DeshboardTop deshtitle="Create Post" />
 
             <Row gutter={[32]} style={{ marginTop: "50px" }}>
-                <Col span={32}>
+                <Col span={24}>
                     <Card>
                         <Flex justify="space-between">
                             <div>
@@ -56,122 +84,65 @@ const CreatePost = () => {
                                 View More
                             </Button>
                         </Flex>
-                        <Flex>
-                            <Form
-                                labelCol={{
-                                    span: 32,
-                                }}
-                                onFinish={onFinish}
-                                onFinishFailed={onFinishFailed}
-                                autoComplete="off"
-                                wrapperCol={{
-                                    span: 14,
-                                }}
-                                layout="horizontal"
-                                style={{
-                                    maxWidth: 600,
-                                }}
+                    </Card>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <Card style={{ marginTop: "10px" }}>
+                        <Input
+                            name="title"
+                            onChange={handleChange}
+                            placeholder="title"
+                        />
+                        <label htmlFor="">Catagory : </label>
+                        <Select
+                            style={{ marginTop: "10px" }}
+                            showSearch
+                            placeholder="Select a person"
+                            optionFilterProp="children"
+                            onChange={onChange}
+                            onSearch={onSearch}
+                            filterOption={filterOption}
+                            options={[
+                                {
+                                    value: "jack",
+                                    label: "Jack",
+                                },
+                                {
+                                    value: "lucy",
+                                    label: "Lucy",
+                                },
+                                {
+                                    value: "tom",
+                                    label: "Tom",
+                                },
+                            ]}
+                        />
+                        <br />
+                        <label htmlFor="">Description:</label>
+                        <TextArea
+                            name="description"
+                            onChange={handleChange}
+                            rows={4}
+                        />
+
+                        <Upload {...props}>
+                            <Button
+                                style={{ marginTop: "10px" }}
+                                icon={<UploadOutlined />}
                             >
-                                <Form.Item
-                                    label="Username"
-                                    name="username"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                "Please input your username!",
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item label="Categories">
-                                    <TreeSelect
-                                        treeData={[
-                                            {
-                                                title: "Light",
-                                                value: "light",
-                                            },
-                                            {
-                                                title: "dight",
-                                                value: "dight",
-                                            },
-                                        ]}
-                                    />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Upload"
-                                    valuePropName="fileList"
-                                    getValueFromEvent={normFile}
-                                >
-                                    <Upload
-                                        listType="picture-card"
-                                    >
-                                        <div>
-                                            <PlusOutlined />
-                                            <div
-                                                style={{
-                                                    marginTop: 8,
-                                                }}
-                                            >
-                                                Upload
-                                            </div>
-                                        </div>
-                                    </Upload>
-                                </Form.Item>
-
-                                {/* <Form.Item label="Categories">
-                                    <TreeSelect
-                                        treeData={[
-                                            {
-                                                title: "Light",
-                                                value: "light",
-                                            },
-                                            {
-                                                title: "dight",
-                                                value: "dight",
-                                            },
-                                        ]}
-                                    />
-                                </Form.Item>
-
-                                <Form.Item label="TextArea">
-                                    <TextArea rows={32} />
-                                </Form.Item>
-
-                                <Form.Item
-                                    label="Upload"
-                                    valuePropName="fileList"
-                                    getValueFromEvent={normFile}
-                                >
-                                    <Upload
-                                        action="/upload.do"
-                                        listType="picture-card"
-                                    >
-                                        <div>
-                                            <PlusOutlined />
-                                            <div
-                                                style={{
-                                                    marginTop: 8,
-                                                }}
-                                            >
-                                                Upload
-                                            </div>
-                                        </div>
-                                    </Upload>
-                                </Form.Item> */}
-                                <Form.Item
-                                    wrapperCol={{
-                                        offset: 8,
-                                        span: 16,
-                                    }}
-                                >
-                                    <Button type="primary" htmlType="submit">
-                                        Sing Up
-                                    </Button>
-                                </Form.Item>
-                            </Form>
-                        </Flex>
+                                Click to Upload
+                            </Button>
+                        </Upload>
+                        <Button
+                            onClick={handlePost}
+                            style={{ marginTop: "10px" }}
+                            type="primary"
+                            block
+                        >
+                            Create Post
+                        </Button>
                     </Card>
                 </Col>
             </Row>
