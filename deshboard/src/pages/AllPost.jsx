@@ -46,6 +46,7 @@ const AllPost = () => {
                                         size={64}
                                         icon={<UserOutlined />}
                                     />
+
                                     <div>
                                         <Flex gap="10px">
                                             <p>rezaiimohammad@gmail.com</p>
