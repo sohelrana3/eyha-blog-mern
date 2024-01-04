@@ -54,3 +54,8 @@
     padding: 10px 0;
     margin: 10px 0;
 }
+.post-img{
+    width: 100px;
+    height: 100px;
+    display: block;
+}

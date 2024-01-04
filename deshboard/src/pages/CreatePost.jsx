@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeshboardTop from "../components/DeshboardTop";
+import baseUrl from "../utils/Content";
+import { useSelector } from "react-redux";
 import {
     Col,
     Row,
@@ -20,10 +22,26 @@ import {
 } from "antd";
 const { TextArea } = Input;
 import { UploadOutlined } from "@ant-design/icons";
+import axios from "axios";
 const { RangePicker } = DatePicker;
 
 const CreatePost = () => {
     const [input, setinput] = useState({});
+    const [file, setfile] = useState("");
+    const [img, setimg] = useState([]);
+    let logData = useSelector((state) => state.logUser.loginUser);
+
+    //
+    useEffect(() => {
+        // const getimg = async () => {
+        //     const res = await axios.get(
+        //         "http://localhost:8000/api/v1/auth/getimg"
+        //     );
+        //     setimg(res.data);
+        //     console.log(res.data);
+        // };
+        // getimg();
+    }, []);
 
     const props = {
         name: "file",
@@ -66,8 +84,23 @@ const CreatePost = () => {
         });
     };
     const handlePost = () => {
-        console.log(input);
+        let data = {
+            postAdmin: logData.email,
+            title: input.title,
+            categories: input.catagory,
+            description: input.description,
+            photo: input.photo,
+            tags: input.tags,
+            date: `${new Date().getFullYear()}-${
+                new Date().getMonth() + 1
+            }-${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()}`,
+        };
+        axios
+            .post(`${baseUrl}/api/v1/auth/createpost`, data)
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log(err));
     };
+
     return (
         <div className="deshboard ">
             <DeshboardTop deshtitle="Create Post" />
@@ -106,16 +139,28 @@ const CreatePost = () => {
                             filterOption={filterOption}
                             options={[
                                 {
-                                    value: "jack",
-                                    label: "Jack",
+                                    value: "Education",
+                                    label: "Education",
                                 },
                                 {
-                                    value: "lucy",
-                                    label: "Lucy",
+                                    value: "Food",
+                                    label: "Food",
                                 },
                                 {
-                                    value: "tom",
-                                    label: "Tom",
+                                    value: "Lern",
+                                    label: "Lern",
+                                },
+                                {
+                                    value: "Medical",
+                                    label: "Medical",
+                                },
+                                {
+                                    value: "Lifestyle",
+                                    label: "Lifestyle",
+                                },
+                                {
+                                    value: "Healthy",
+                                    label: "Healthy",
                                 },
                             ]}
                         />
@@ -126,15 +171,19 @@ const CreatePost = () => {
                             onChange={handleChange}
                             rows={4}
                         />
+                        <TextArea
+                            name="photo"
+                            onChange={handleChange}
+                            placeholder="images url"
+                            rows={1}
+                        />
+                        <TextArea
+                            name="tags"
+                            onChange={handleChange}
+                            placeholder="tags"
+                            rows={1}
+                        />
 
-                        <Upload {...props}>
-                            <Button
-                                style={{ marginTop: "10px" }}
-                                icon={<UploadOutlined />}
-                            >
-                                Click to Upload
-                            </Button>
-                        </Upload>
                         <Button
                             onClick={handlePost}
                             style={{ marginTop: "10px" }}

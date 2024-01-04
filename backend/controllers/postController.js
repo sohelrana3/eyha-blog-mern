@@ -1,5 +1,6 @@
 const Post = require("../model/postSchema");
 const Postimg = require("../model/uploadSchema");
+const formidable = require("formidable");
 
 const postCteate = async (req, res) => {
     try {
@@ -15,7 +16,7 @@ const postCteate = async (req, res) => {
             date,
         });
         const post = await createPost.save();
-        res.send(post);
+        res.send("Post create sucessfull");
     } catch (err) {
         res.send(err);
     }
@@ -30,12 +31,21 @@ const getPost = async (req, res) => {
 };
 
 const fileupload = async (req, res) => {
-    const postimg = new Postimg({
-        filename: req.file.filename,
-        filepath: req.file.path,
+    const form = formidable();
+    form.parse(req, (err, fields, files) => {
+        console.log(files);
     });
-    const img = await postimg.save();
-    res.send(img);
+    // const postimg = new Postimg({
+    //     filename: req.file.filename,
+    //     filepath: req.file.path,
+    // });
+    // const img = await postimg.save();
+    // res.send(img);
 };
 
-module.exports = { postCteate, getPost, fileupload };
+const getImg = async (req, res) => {
+    const getImg = await Postimg.find();
+    res.send(getImg);
+};
+
+module.exports = { postCteate, getPost, fileupload, getImg };

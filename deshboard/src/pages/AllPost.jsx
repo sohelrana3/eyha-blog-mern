@@ -40,30 +40,26 @@ const AllPost = () => {
                         {/* map */}
                         {data.map((item) => (
                             <Flex style={{ paddingTop: "20px" }} gap="20px">
-                                <Flex style={{ width: "80%" }} gap="20px">
-                                    <Avatar
-                                        shape="square"
-                                        size={64}
-                                        icon={<UserOutlined />}
+                                <div className="post-img">
+                                    <img
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            borderRadius: "5px",
+                                        }}
+                                        src={item.photo}
+                                        alt="logo"
                                     />
-
+                                </div>
+                                <Flex style={{ width: "80%" }} gap="20px">
                                     <div>
                                         <Flex gap="10px">
-                                            <p>rezaiimohammad@gmail.com</p>
+                                            <p>{item.postAdmin}</p>
                                             <p>October 25th, 2020 08:55 AM</p>
                                         </Flex>
 
-                                        <h3>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit,
-                                        </h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit, sed do
-                                            eiusmod tempor incididunt ut labore
-                                            et dolore magna aliqua Lorem ipsum
-                                            dolor sit
-                                        </p>
+                                        <h3>{item.title}</h3>
+                                        <p>{item.description}</p>
                                     </div>
                                 </Flex>
                                 <Flex gap="20px">
