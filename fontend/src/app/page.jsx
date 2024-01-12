@@ -1,4 +1,6 @@
 import Image from "next/image";
+// inport components
+import Banner from "@/components/Banner";
 import { MdOutlineVerified } from "react-icons/md";
 import user from "../../public/asset/images/user.png";
 async function getdata() {
@@ -11,7 +13,8 @@ export default async function Home() {
     console.log(data);
 
     return (
-        <main className="max-w-6xl mx-auto">
+        <>
+            <Banner />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-6 ">
                 {/* map start */}
                 {data.reverse().map((item) => (
@@ -61,6 +64,6 @@ export default async function Home() {
             <div className="py-4">
                 <h2>hello</h2>
             </div>
-        </main>
+        </>
     );
 }
