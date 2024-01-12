@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 const Banner = () => {
     return (
-        <section className="bg-backbg">
+        <section className="bg-backbg lg:pb-32">
             <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 px-2 gap-2">
                 <div>
                     <h1 className="text-primary font-bold text-5xl mb-6">
