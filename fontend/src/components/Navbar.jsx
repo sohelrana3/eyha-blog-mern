@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import logo from "../../public/asset/images/logo.svg";
+
 import Link from "next/link";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
@@ -58,9 +57,7 @@ const Navbar = () => {
         <header className="bg-[#F9FCFF]">
             <nav className="max-w-6xl mx-auto flex justify-between items-center bg-[#F9FCFF] px-2 py-8 ">
                 <div>
-                    <Link href="/">
-                        <Image src={logo} alt="logo" />
-                    </Link>
+                    <h2>ehya</h2>
                 </div>
                 <div className="flex gap-9 items-center">
                     <ul className="hidden lg:flex gap-9">
