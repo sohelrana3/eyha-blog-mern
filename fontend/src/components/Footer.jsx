@@ -1,5 +1,6 @@
 import Link from "next/link";
-
+import logo from "../../public/asset/images/logo-white.png";
+import Image from "next/image";
 import { FaHeart } from "react-icons/fa";
 
 const Footer = () => {
@@ -7,7 +8,7 @@ const Footer = () => {
         <footer className="bg-[#0D2436] pt-32 pb-20">
             <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 ">
                 <div className="md:row-span-2 lg:row-span-1 order-last md:order-first">
-                    ehya
+                    <Image src={logo} alt="logo" />
                     <p className="text-[#5A7184] text-sm py-7">
                         Build a modern and creative website with moonfo
                     </p>
