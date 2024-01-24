@@ -61,8 +61,8 @@ const Navbar = () => {
                 </div>
                 <div className="flex gap-9 items-center">
                     <ul className="hidden lg:flex gap-9">
-                        {navItem.map((item) => (
-                            <li className="text-[#183B56]">
+                        {navItem.map((item, index) => (
+                            <li key={index} className="text-[#183B56]">
                                 <Link href={item.path}>{item.link}</Link>
                             </li>
                         ))}
