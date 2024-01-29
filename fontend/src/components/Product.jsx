@@ -11,6 +11,7 @@ async function getdata() {
 const Product = async () => {
     const data = await getdata();
     console.log(data);
+
     return (
         <section className="max-w-6xl mx-auto lg:-mt-32">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-6 ">
@@ -25,9 +26,11 @@ const Product = async () => {
                             className="rounded-t-md w-ful h-72 pb-6"
                         />
                         <div className="px-8">
-                            <h2 className="text-[#183B56] font-bold text-lg capitalize mb-4">
-                                {item.title}
-                            </h2>
+                            <Link href={`/blog/${item._id}`}>
+                                <h2 className="text-[#183B56] font-bold text-lg capitalize mb-4">
+                                    {item.title}
+                                </h2>
+                            </Link>
                             <p className="text-[#183B56] font-normal text-sm mb-7">
                                 {item.description}
                             </p>
@@ -59,7 +62,10 @@ const Product = async () => {
                 {/* map end */}
             </div>
             <div className="flex justify-center mt-10">
-                <Link href="" className="flex justify-center items-center gap-4 py-2 px-5 border border-regalblue hover:bg-primary hover:text-white hover:border-primary">
+                <Link
+                    href=""
+                    className="flex justify-center items-center gap-4 py-2 px-5 border border-regalblue hover:bg-primary hover:text-white hover:border-primary"
+                >
                     More articles <AiOutlineArrowRight />
                 </Link>
             </div>
