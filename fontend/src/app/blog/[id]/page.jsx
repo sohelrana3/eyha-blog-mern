@@ -1,14 +1,19 @@
-const page = () => {
+"use client";
+import Breadcam from "@/components/Breadcam";
 
+import { usePathname } from "next/navigation";
+
+const page = () => {
     return (
         <section className="container mx-auto max-w-5xl flex flex-col px-5 py-5 lg:flex-row lg:gap-x-5 lg:items-start">
             <article className="flex-1">
-                {/* <BreadCrumbs data={breadCrumbsData} /> */}
-                /page/
-                <img src="" alt="img" />
+                <Breadcam />
+                <img
+                    src="https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="img"
+                />
                 <div className="mt-4 flex gap-2">
-
-                  home about
+                    EDUCATION
                     {/* {data?.categories.map((category) => (
                         <Link
                             to={`/blog?category=${category.name}`}
@@ -20,10 +25,34 @@ const page = () => {
                 </div>
                 <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard md:text-[26px]">
                     {/* {data?.title} */}
-                    hello title
+                    Help children get better education
                 </h1>
                 <div className="w-full">
-                  errop
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Egestas purus viverra accumsan in nisl
+                        nisi. Arcu cursus vitae congue mauris rhoncus aenean vel
+                        elit scelerisque. In egestas erat imperdiet sed euismod
+                        nisi porta lorem mollis. Morbi tristique senectus et
+                        netus. Mattis pellentesque id nibh tortor id aliquet
+                        lectus proin. Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Egestas purus viverra
+                        accumsan in nisl nisi. Arcu cursus vitae congue mauris
+                        rhoncus aenean vel elit scelerisque. In egestas erat
+                        imperdiet sed euismod nisi porta lorem mollis. Morbi
+                        tristique senectus et netus. Lorem ipsum dolor sit amet,
+                        consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Egestas
+                        purus viverra accumsan in nisl nisi. Arcu cursus vitae
+                        congue mauris rhoncus aenean vel elit scelerisque. In
+                        egestas erat imperdiet sed euismod nisi porta lorem
+                        mollis. Morbi tristique senectus et netus. Mattis
+                        pellentesque id nibh tortor id aliquet lectus proin.
+                        Sapien faucibus et molestie ac feugiat sed lectus
+                        vestibulum.
+                    </p>
                     {/* {!isLoading && !isError && (
                         <Editor content={data?.body} editable={false} />
                     )} */}
