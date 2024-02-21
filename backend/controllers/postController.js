@@ -30,6 +30,17 @@ const getPost = async (req, res) => {
     }
 };
 
+// product q
+
+const idPost = async (req, res) => {
+    const { id } = req.body;
+
+    const product = await Post.findById({ _id: id });
+
+  
+    res.send(product);
+};
+
 const fileupload = async (req, res) => {
     const form = formidable();
     form.parse(req, (err, fields, files) => {
@@ -48,4 +59,4 @@ const getImg = async (req, res) => {
     res.send(getImg);
 };
 
-module.exports = { postCteate, getPost, fileupload, getImg };
+module.exports = { postCteate, getPost, fileupload, getImg, idPost };

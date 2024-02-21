@@ -8,7 +8,7 @@ async function getdata() {
     const res = await fetch("http://localhost:8000/api/v1/auth/getpost");
     return res.json();
 }
-const Product = async () => {
+const Product = async ({params }) => {
     const data = await getdata();
     console.log(data);
 

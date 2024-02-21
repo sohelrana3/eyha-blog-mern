@@ -8,7 +8,8 @@ const {
     postCteate,
     getPost,
     fileupload,
-    getImg
+    getImg,
+    idPost
 } = require("../../controllers/postController");
 
 const upload = multer({
@@ -19,6 +20,7 @@ _.post("/registration", registration);
 _.post("/login", loginController);
 _.post("/createpost", postCteate);
 _.get("/getpost", getPost);
+_.post("/idpost", idPost);
 _.get("/getimg", getImg);
 _.post("/upload", upload.single(""), fileupload);
 
