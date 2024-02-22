@@ -3,6 +3,7 @@ import Breadcam from "@/components/Breadcam";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
+import CommentContainer from "@/components/CommentContainer";
 
 const page = ({ params }) => {
     let [data, setdata] = useState([]);
@@ -43,7 +44,7 @@ const page = ({ params }) => {
                     logginedUserId={userState?.userInfo?._id}
                     postSlug={slug}
                 /> */}
-                comments
+                <CommentContainer />
             </article>
             <div>
                 {/* <SuggestedPosts
