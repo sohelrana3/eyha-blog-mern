@@ -4,7 +4,7 @@ const commentSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+      
     },
     desc: {
         type: String,
@@ -17,7 +17,7 @@ const commentSchema = new Schema({
     post: {
         type: Schema.Types.ObjectId,
         ref: "Post",
-        required: true,
+        
     },
     replyOnUser: {
         type: Schema.Types.ObjectId,

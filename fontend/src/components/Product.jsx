@@ -1,16 +1,27 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineVerified } from "react-icons/md";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 import user from "../../public/asset/images/user.png";
-async function getdata() {
-    const res = await fetch("http://localhost:8000/api/v1/auth/getpost");
-    return res.json();
-}
-const Product = async ({params }) => {
-    const data = await getdata();
-    console.log(data);
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const Product = ({ params }) => {
+    let [data, setdata] = useState([]);
+    useEffect(() => {
+        async function getDate() {
+            let data = await axios.get(
+                "http://localhost:8000/api/v1/auth/getpost"
+            );
+
+            console.log(data.data);
+            setdata(data.data);
+        }
+
+        getDate();
+    }, []);
 
     return (
         <section className="max-w-6xl mx-auto lg:-mt-32">

@@ -6,10 +6,12 @@ import Image from "next/image";
 import CommentContainer from "@/components/CommentContainer";
 
 const page = ({ params }) => {
-    let [data, setdata] = useState([]);
+    let [data, setdata] = useState({});
+    let [msg, setmsg] = useState([]);
     console.log(params.id);
 
     useEffect(() => {
+        // all post data
         async function getdata() {
             let data = await axios.post(
                 "http://localhost:8000/api/v1/auth/idpost",
@@ -20,6 +22,16 @@ const page = ({ params }) => {
             setdata(data.data);
             console.log(data.data);
         }
+        // all comment data
+
+        async function allcomment() {
+            let comment = await axios.get(
+                "http://localhost:8000/api/v1/comment/allcomment"
+            );
+            console.log(comment.data);
+            setmsg(comment.data);
+        }
+        allcomment();
         getdata();
     }, []);
 
@@ -44,7 +56,30 @@ const page = ({ params }) => {
                     logginedUserId={userState?.userInfo?._id}
                     postSlug={slug}
                 /> */}
-                <CommentContainer />
+
+                <div className="mt-4">
+                    <h2 className="font-semibold text-2xl">
+                        All Comments (0)
+                    </h2>
+                    <div className="py-4 relative">
+                        <textarea
+                            rows="4"
+                            cols="50"
+                            className="w-full min-h-40 py-7 px-6 border-2 border-[#76AEFF]"
+                            placeholder="Leave your comment here..."
+                        ></textarea>
+                        <button className="absolute bottom-9 right-10 py-3 px-9 bg-[#1565D8] rounded text-wrap">
+                            Send
+                        </button>
+                    </div>
+                </div>
+
+                {msg.map(
+                    (item) =>
+                        item.post == data._id && (
+                            <CommentContainer key={item._id} item={item} />
+                        )
+                )}
             </article>
             <div>
                 {/* <SuggestedPosts

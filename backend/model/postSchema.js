@@ -17,8 +17,8 @@ const postSchema = new mongoose.Schema({
         required: true,
     },
     postAdmin: {
-        type: String,
-        require: true,
+        type: mongoose.Types.ObjectId,
+        ref: "User",
     },
     tags: {
         type: [String],

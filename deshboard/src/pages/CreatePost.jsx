@@ -85,7 +85,7 @@ const CreatePost = () => {
     };
     const handlePost = () => {
         let data = {
-            postAdmin: logData.email,
+            postAdmin: logData._id,
             title: input.title,
             categories: input.catagory,
             description: input.description,

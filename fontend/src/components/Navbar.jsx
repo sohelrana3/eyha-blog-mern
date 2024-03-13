@@ -70,9 +70,11 @@ const Navbar = () => {
                             </li>
                         ))}
                     </ul>
-                    <button className=" hidden lg:flex border-2 border-[#1565D8] px-9 py-3 rounded-full text-[#1565D8]">
-                        Sing In
-                    </button>
+                    <Link href="/login">
+                        <button className=" hidden lg:flex border-2 border-[#1565D8] px-9 py-3 rounded-full text-[#1565D8]">
+                            Sing In
+                        </button>
+                    </Link>
 
                     {/* mobile menu */}
                     <div className="lg:hidden">
@@ -96,9 +98,11 @@ const Navbar = () => {
                             </li>
                         ))}
                     </ul>
-                    <button className=" lg:hidden border-2 border-[#1565D8] mx-2 py-4 rounded-full text-[#1565D8]">
-                        Sing In
-                    </button>
+                    <Link href="/login">
+                        <button className=" lg:hidden border-2 border-[#1565D8] mx-2 py-4 rounded-full text-[#1565D8]">
+                            Sing In
+                        </button>
+                    </Link>
                 </div>
             )}
         </header>
