@@ -2,10 +2,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AiFillMessage } from "react-icons/ai";
 import { MdEdit, MdDelete } from "react-icons/md";
-import user from "../../public/asset/images/user.png"
+import user from "../../public/asset/images/user.png";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const CommentContainer = ({item}) => {
-    console.log(item.user);
+const CommentContainer = ({ item }) => {
+    let userData = useAppSelector((state) => state.logUser.loginUser);
+
     return (
         <>
             {/* map start */}
@@ -28,23 +30,25 @@ const CommentContainer = ({item}) => {
                 </div>
 
                 <div className="pl-20 mt-3">
-                    <p className="text-[#77808B]">
-                        {item.desc}
-                    </p>
+                    <p className="text-[#77808B]">{item.desc}</p>
 
                     <div className="mt-4 flex gap-20">
                         <button className="flex gap-4 items-center">
                             <AiFillMessage />
                             Reply
                         </button>
-                        <button className="flex gap-4 items-center">
-                            <MdEdit />
-                            Edit
-                        </button>
-                        <button className="flex gap-4 items-center">
-                            <MdDelete />
-                            Delete
-                        </button>
+                        {userData._id == item.user._id && (
+                            <>
+                                <button className="flex gap-4 items-center">
+                                    <MdEdit />
+                                    Edit
+                                </button>
+                                <button className="flex gap-4 items-center">
+                                    <MdDelete />
+                                    Delete
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

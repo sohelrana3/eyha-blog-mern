@@ -4,11 +4,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import CommentContainer from "@/components/CommentContainer";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 const page = ({ params }) => {
+    let userData = useAppSelector((state) => state.logUser.loginUser);
     let [data, setdata] = useState({});
     let [msg, setmsg] = useState([]);
-    console.log(params.id);
+    let [value, setvalue] = useState("");
+
+    // handleSend button
+    let handleSend = async () => {
+        let data = await axios.post(
+            "http://localhost:8000/api/v1/comment/create",
+            {
+                user: userData._id,
+                desc: value,
+                post: params.id,
+            }
+        );
+        console.log(data.data);
+    };
 
     useEffect(() => {
         // all post data
@@ -20,7 +35,6 @@ const page = ({ params }) => {
                 }
             );
             setdata(data.data);
-            console.log(data.data);
         }
         // all comment data
 
@@ -31,6 +45,7 @@ const page = ({ params }) => {
             console.log(comment.data);
             setmsg(comment.data);
         }
+
         allcomment();
         getdata();
     }, []);
@@ -58,17 +73,19 @@ const page = ({ params }) => {
                 /> */}
 
                 <div className="mt-4">
-                    <h2 className="font-semibold text-2xl">
-                        All Comments (0)
-                    </h2>
+                    <h2 className="font-semibold text-2xl">All Comments 0</h2>
                     <div className="py-4 relative">
                         <textarea
                             rows="4"
                             cols="50"
                             className="w-full min-h-40 py-7 px-6 border-2 border-[#76AEFF]"
                             placeholder="Leave your comment here..."
+                            onChange={(e) => setvalue(e.target.value)}
                         ></textarea>
-                        <button className="absolute bottom-9 right-10 py-3 px-9 bg-[#1565D8] rounded text-wrap">
+                        <button
+                            onClick={handleSend}
+                            className="absolute bottom-9 right-10 py-3 px-9 bg-[#1565D8] rounded text-wrap"
+                        >
                             Send
                         </button>
                     </div>
