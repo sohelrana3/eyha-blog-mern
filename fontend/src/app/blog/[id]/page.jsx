@@ -11,7 +11,7 @@ const page = ({ params }) => {
     let [data, setdata] = useState({});
     let [msg, setmsg] = useState([]);
     let [value, setvalue] = useState("");
-
+    
     // handleSend button
     let handleSend = async () => {
         let data = await axios.post(

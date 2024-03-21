@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { usePathname } from "next/navigation";
 
 const navItem = [
     {
@@ -47,6 +48,7 @@ const navItem = [
 ];
 
 const Navbar = () => {
+    const pathname = usePathname();
     let userData = useAppSelector((state) => state.logUser.loginUser);
     let [menu, setmenu] = useState(false);
     const handleChange = () => {
@@ -66,7 +68,14 @@ const Navbar = () => {
                 <div className="flex gap-9 items-center">
                     <ul className="hidden lg:flex gap-9">
                         {navItem.map((item) => (
-                            <li key={item.id} className="text-[#183B56]">
+                            <li
+                                key={item.id}
+                                className={
+                                    item.path == pathname
+                                        ? "border-b border-[#183B56]"
+                                        : "text-[#183B56]"
+                                }
+                            >
                                 <Link href={item.path}>{item.link}</Link>
                             </li>
                         ))}
