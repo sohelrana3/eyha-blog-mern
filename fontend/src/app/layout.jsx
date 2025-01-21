@@ -21,8 +21,8 @@ export default function RootLayout({ children }) {
                     {children}
                     <Footer />
                </StoreProvider>
-                    
-                
+                <h3>ddsf</h3>
+  
             </body>
         </html>
     );
